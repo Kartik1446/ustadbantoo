@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, Quote, ArrowUpRight, Search, Users } from 'lucide-react';
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from '../components/Icons';
+import { Mail, Quote, ArrowUpRight, Search, Users, Sparkles, Filter, ExternalLink } from 'lucide-react';
+import { InstagramIcon, LinkedinIcon, TwitterIcon, TrumpetIcon } from '../components/Icons';
 import { CAST_CREW } from '../data/castCrewData';
 
 export default function CastCrewPage({ onSelectMember }) {
@@ -30,63 +30,89 @@ export default function CastCrewPage({ onSelectMember }) {
       searchQuery === ''
         ? true
         : m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          m.role.toLowerCase().includes(searchQuery.toLowerCase());
+          m.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (m.bio && m.bio.toLowerCase().includes(searchQuery.toLowerCase()));
 
     return matchesCat && matchesSearch;
   });
 
   return (
-    <div className="min-h-screen text-[#efebe3] pt-28 pb-20 selection:bg-[#ff4a1c] selection:text-white">
+    <div className="min-h-screen text-[#efebe3] pt-32 pb-24 selection:bg-[#ff4a1c] selection:text-white film-grain">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="border-b border-white/10 pb-8 mb-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold uppercase bg-[#ff4a1c]/15 text-[#ff4a1c] border border-[#ff4a1c]/30">
-                Cast & Crew
-              </span>
-              <h1 className="font-anton text-5xl sm:text-7xl lg:text-8xl tracking-tight uppercase text-[#efebe3] mt-3">
-                THE PEOPLE BEHIND THE STORIES
+              <div className="flex items-center gap-2 mb-2">
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase bg-[#ff4a1c]/15 text-[#ff4a1c] border border-[#ff4a1c]/30">
+                  Press Kit & Credits
+                </span>
+                <span className="text-xs font-mono text-[#9d9590]">
+                  The Brass Ensemble & Creative Team
+                </span>
+              </div>
+              <h1 className="font-anton text-6xl sm:text-7xl lg:text-8xl tracking-tight uppercase text-[#efebe3]">
+                CAST & CREW
               </h1>
-              <p className="font-mono text-sm sm:text-base text-[#9d9590] mt-2">
-                Actors, street musicians, sound recordists, and independent filmmakers who brought Bantoo to life.
+              <p className="font-mono text-sm sm:text-base text-[#9d9590] mt-2 max-w-2xl">
+                The actors, Delhi wedding band musicians, sound recordists, and independent filmmakers who brought Ustad Bantoo to life.
               </p>
             </div>
 
             {/* Quick Search */}
-            <div className="relative w-full md:w-64">
-              <Search className="w-4 h-4 text-[#9d9590] absolute left-3.5 top-3" />
+            <div className="relative w-full lg:w-72">
+              <Search className="w-4 h-4 text-[#9d9590] absolute left-4 top-3.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by name or role..."
-                className="w-full bg-[#140804] border border-white/15 rounded-full pl-10 pr-4 py-2 text-xs text-[#efebe3] placeholder-[#9d9590] focus:outline-none focus:border-[#ff4a1c]"
+                placeholder="Search actor, role, or crew..."
+                className="w-full bg-[#140804] border border-white/15 rounded-full pl-11 pr-4 py-3 text-xs text-[#efebe3] placeholder-[#9d9590] focus:outline-none focus:border-[#ff4a1c] shadow-inner"
               />
             </div>
           </div>
 
           {/* Category Filter Pills */}
           <div className="mt-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            <span className="text-xs font-mono uppercase text-[#9d9590] mr-2 shrink-0">
-              Sort By:
+            <span className="text-xs font-mono uppercase text-[#9d9590] mr-2 shrink-0 font-bold">
+              Filter By:
             </span>
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
                   selectedCategory === cat.id
-                    ? 'bg-[#efebe3] text-[#0d0401] font-bold shadow-md'
+                    ? 'bg-[#efebe3] text-[#0d0401] font-bold shadow-lg shadow-white/10'
                     : 'bg-[#150a06] text-[#9d9590] hover:text-[#efebe3] border border-white/10'
                 }`}
               >
                 <span>{cat.label}</span>
-                <span className="text-[10px] opacity-60 font-mono">({cat.count})</span>
+                <span className="text-[10px] opacity-70 font-mono">({cat.count})</span>
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Real Brass Musicians Tribute Callout */}
+        <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#200e07] via-[#180a05] to-[#120603] border border-[#f6e12b]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#f6e12b]/20 border border-[#f6e12b]/40 flex items-center justify-center text-[#f6e12b] shrink-0">
+              <TrumpetIcon className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-anton text-2xl uppercase tracking-wide text-[#efebe3]">
+                HONORING DELHI'S WEDDING BAND MUSICIANS
+              </h3>
+              <p className="text-xs font-mono text-[#9d9590] mt-1 max-w-xl">
+                Special tribute to Kirti Band and the street musicians of Chandni Chowk, Daryaganj, and Old Delhi whose real lives, horns, and brotherhood form the backbone of this film.
+              </p>
+            </div>
+          </div>
+          <span className="px-3.5 py-1.5 rounded-full bg-white/10 text-[#f6e12b] font-mono text-xs uppercase font-bold shrink-0">
+            Authentic Delhi Brass
+          </span>
         </div>
 
         {/* Member Cards Grid */}
@@ -94,9 +120,9 @@ export default function CastCrewPage({ onSelectMember }) {
           {filteredMembers.map((member) => (
             <div
               key={member.id}
-              className="group relative rounded-2xl overflow-hidden bg-[#140804] border border-white/10 hover:border-[#ff4a1c]/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 shadow-lg"
+              className="group relative rounded-3xl overflow-hidden bg-[#140804] border border-white/10 hover:border-[#ff4a1c]/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 shadow-xl"
             >
-              {/* Photo */}
+              {/* Photo with Overlay */}
               <div
                 className="relative aspect-[3/4] overflow-hidden bg-[#200f07] cursor-pointer"
                 onClick={() => onSelectMember(member)}
@@ -104,21 +130,25 @@ export default function CastCrewPage({ onSelectMember }) {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity" />
 
-                {/* View bio hint */}
-                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white">
+                {/* Top Right View Details Hint */}
+                <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="w-9 h-9 rounded-full bg-black/80 backdrop-blur-md flex items-center justify-center text-white shadow-lg">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </div>
 
-                <div className="absolute bottom-3 left-3 right-3">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-[#ff4a1c] text-white">
+                {/* Bottom Category Tag */}
+                <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#ff4a1c] text-white font-bold shadow-md">
                     {member.category}
+                  </span>
+                  <span className="text-[10px] font-mono text-[#d9d8ca] bg-black/60 px-2 py-0.5 rounded-full">
+                    Bio & Filmography →
                   </span>
                 </div>
               </div>
@@ -136,16 +166,20 @@ export default function CastCrewPage({ onSelectMember }) {
                     {member.role}
                   </p>
 
-                  {member.quote && (
+                  {member.quote ? (
                     <p className="mt-3 text-xs italic text-[#9d9590] line-clamp-2 border-l-2 border-[#ff4a1c] pl-2.5">
                       {member.quote}
+                    </p>
+                  ) : (
+                    <p className="mt-3 text-xs text-[#9d9590]/80 line-clamp-2 font-mono">
+                      {member.bio}
                     </p>
                   )}
                 </div>
 
-                {/* Social Icons */}
-                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-[#9d9590]">
-                  <div className="flex items-center gap-2.5">
+                {/* Social Icons & Read Bio */}
+                <div className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between text-xs text-[#9d9590]">
+                  <div className="flex items-center gap-3">
                     {member.instagram && (
                       <a
                         href={member.instagram}
@@ -154,7 +188,7 @@ export default function CastCrewPage({ onSelectMember }) {
                         title="Instagram"
                         className="hover:text-[#ff4a1c] transition-colors"
                       >
-                        <InstagramIcon className="w-3.5 h-3.5" />
+                        <InstagramIcon className="w-4 h-4" />
                       </a>
                     )}
                     {member.email && (
@@ -163,7 +197,7 @@ export default function CastCrewPage({ onSelectMember }) {
                         title="Send Email"
                         className="hover:text-[#ff4a1c] transition-colors"
                       >
-                        <Mail className="w-3.5 h-3.5" />
+                        <Mail className="w-4 h-4" />
                       </a>
                     )}
                     {member.linkedin && (
@@ -174,7 +208,7 @@ export default function CastCrewPage({ onSelectMember }) {
                         title="LinkedIn"
                         className="hover:text-[#ff4a1c] transition-colors"
                       >
-                        <LinkedinIcon className="w-3.5 h-3.5" />
+                        <LinkedinIcon className="w-4 h-4" />
                       </a>
                     )}
                     {member.twitter && (
@@ -185,16 +219,16 @@ export default function CastCrewPage({ onSelectMember }) {
                         title="X"
                         className="hover:text-[#ff4a1c] transition-colors"
                       >
-                        <TwitterIcon className="w-3.5 h-3.5" />
+                        <TwitterIcon className="w-4 h-4" />
                       </a>
                     )}
                   </div>
 
                   <button
                     onClick={() => onSelectMember(member)}
-                    className="text-[11px] font-mono text-[#9d9590] hover:text-[#efebe3] transition-colors"
+                    className="text-[11px] font-mono text-[#f6e12b] hover:text-white transition-colors font-bold"
                   >
-                    Bio & Details →
+                    View Bio →
                   </button>
                 </div>
               </div>

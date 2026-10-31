@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { X, Send, MapPin, CheckCircle2, ExternalLink } from 'lucide-react';
+import { X, Send, MapPin, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { FILM_INFO } from '../data/filmData';
+import { TrumpetIcon } from './Icons';
 
 export default function WaitlistModal({ onClose, defaultCity = '' }) {
   const [city, setCity] = useState(defaultCity);
@@ -18,8 +19,8 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
     setSubmitted(true);
     try {
       confetti({
-        particleCount: 70,
-        spread: 60,
+        particleCount: 80,
+        spread: 70,
         origin: { y: 0.6 },
         colors: ['#ff4a1c', '#f6e12b', '#efebe3']
       });
@@ -27,13 +28,13 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-lg bg-[#140803] border border-white/15 rounded-3xl p-6 sm:p-8 text-[#efebe3] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-fadeIn">
+      <div className="relative w-full max-w-lg bg-[#140803] border border-white/20 rounded-3xl p-6 sm:p-8 text-[#efebe3] shadow-2xl overflow-hidden">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+          className="absolute top-5 right-5 z-10 w-9 h-9 rounded-full bg-white/10 hover:bg-[#ff4a1c] flex items-center justify-center text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -41,25 +42,25 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
         {!submitted ? (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#ff4a1c] text-white">
+              <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase bg-[#ff4a1c] text-white font-bold">
                 Road to 100 Screenings
               </span>
               <span className="text-xs text-[#9d9590] font-mono">
-                Community Release
+                Community Movement
               </span>
             </div>
 
-            <h2 className="font-anton text-3xl tracking-wide text-[#efebe3]">
+            <h2 className="font-anton text-3xl sm:text-4xl tracking-wide text-[#efebe3]">
               HOST BANTOO IN YOUR CITY
             </h2>
-            <p className="text-xs text-[#9d9590] mt-1">
+            <p className="text-xs text-[#9d9590] mt-1.5 font-mono">
               Help us bring the trumpet of Bantoo to colleges, cultural spaces, cafes, and indie cinemas across India.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
               <div>
-                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1">
-                  Your City / Town
+                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                  Your City / Town *
                 </label>
                 <div className="relative">
                   <MapPin className="w-4 h-4 text-[#ff4a1c] absolute left-3.5 top-3" />
@@ -75,22 +76,22 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1">
-                  Your Name
+                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                  Your Name / Collective *
                 </label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Full name or Collective name"
+                  placeholder="Full name or Film Society name"
                   className="w-full bg-[#0a0301] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#efebe3] focus:outline-none focus:border-[#ff4a1c]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1">
-                  Email
+                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                  Email Address *
                 </label>
                 <input
                   type="email"
@@ -104,7 +105,7 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1">
+                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
                     Venue Type
                   </label>
                   <select
@@ -121,7 +122,7 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1">
+                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
                     Est. Audience Capacity
                   </label>
                   <input
@@ -129,7 +130,7 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
                     value={capacity}
                     onChange={(e) => setCapacity(e.target.value)}
                     placeholder="e.g. 100"
-                    className="w-full bg-[#0a0301] border border-white/15 rounded-xl px-4 py-2 text-sm text-[#efebe3] focus:outline-none focus:border-[#ff4a1c]"
+                    className="w-full bg-[#0a0301] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#efebe3] focus:outline-none focus:border-[#ff4a1c]"
                   />
                 </div>
               </div>
@@ -137,9 +138,9 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-[#ff4a1c] hover:bg-[#e0390f] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-[#ff4a1c]/30 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
+                  className="w-full bg-gradient-to-r from-[#ff4a1c] to-[#e0390f] hover:from-[#ff6c45] hover:to-[#ff4a1c] text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-[#ff4a1c]/30 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
                 >
-                  <Send className="w-4 h-4" />
+                  <TrumpetIcon className="w-4 h-4" />
                   <span>Join City Waitlist</span>
                 </button>
               </div>
@@ -158,25 +159,27 @@ export default function WaitlistModal({ onClose, defaultCity = '' }) {
             </form>
           </div>
         ) : (
-          <div className="text-center py-6">
-            <div className="w-14 h-14 bg-[#ff4a1c]/20 border border-[#ff4a1c] rounded-full flex items-center justify-center mx-auto mb-4 text-[#ff4a1c]">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="text-center py-8 space-y-3">
+            <div className="w-16 h-16 bg-[#1db954]/20 border border-[#1db954] rounded-full flex items-center justify-center mx-auto mb-2 text-[#1db954]">
+              <CheckCircle2 className="w-10 h-10" />
             </div>
 
-            <h3 className="font-anton text-2xl tracking-wide text-[#efebe3]">
+            <h3 className="font-anton text-3xl tracking-wide text-[#efebe3]">
               WAITLIST JOINED FOR {city.toUpperCase()}!
             </h3>
 
-            <p className="text-sm text-[#9d9590] mt-2 max-w-sm mx-auto">
+            <p className="text-sm text-[#9d9590] max-w-sm mx-auto font-mono leading-relaxed">
               Thank you, <strong className="text-[#efebe3]">{name}</strong>. Our distribution team will coordinate with you at <strong className="text-[#efebe3]">{email}</strong> to schedule a screening date in {city}!
             </p>
 
-            <button
-              onClick={onClose}
-              className="mt-6 bg-[#efebe3] hover:bg-white text-[#0d0401] font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition-colors"
-            >
-              Done
-            </button>
+            <div className="pt-4">
+              <button
+                onClick={onClose}
+                className="bg-[#efebe3] hover:bg-white text-[#0d0401] font-bold px-8 py-3 rounded-full text-xs uppercase tracking-wider transition-colors shadow-lg"
+              >
+                Close & Return
+              </button>
+            </div>
           </div>
         )}
       </div>

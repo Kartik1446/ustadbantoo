@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, CheckCircle, Ticket, MapPin, Calendar, Clock, Sparkles } from 'lucide-react';
+import { X, CheckCircle, Ticket, MapPin, Calendar, Clock, Sparkles, Download, Share2, ShieldCheck } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { TrumpetIcon } from './Icons';
 
 export default function BookingModal({ screening, onClose }) {
   const [step, setStep] = useState('select'); // 'select' | 'confirmed'
@@ -16,32 +17,33 @@ export default function BookingModal({ screening, onClose }) {
     e.preventDefault();
     if (!name || !email) return;
 
-    // Generate random ticket code
-    const randomCode = 'UB-' + Math.floor(1000 + Math.random() * 9000) + '-' + screening.city.substring(0, 3).toUpperCase();
+    // Generate authentic ticket serial code
+    const randomCode = 'UB-2026-' + screening.shortCity.toUpperCase() + '-' + Math.floor(1000 + Math.random() * 9000);
     setTicketId(randomCode);
     setStep('confirmed');
 
-    // Launch confetti!
+    // Launch celebratory brass confetti
     try {
       confetti({
-        particleCount: 80,
-        spread: 70,
+        particleCount: 90,
+        spread: 80,
         origin: { y: 0.6 },
-        colors: ['#ff4a1c', '#f6e12b', '#efebe3']
+        colors: ['#ff4a1c', '#f6e12b', '#efebe3', '#d4af37']
       });
-    } catch (err) {
-      // ignore
-    }
+    } catch (err) {}
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-lg bg-[#140803] border border-white/15 rounded-3xl p-6 sm:p-8 text-[#efebe3] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-fadeIn">
+      <div className="relative w-full max-w-lg bg-[#140803] border border-white/20 rounded-3xl p-6 sm:p-8 text-[#efebe3] shadow-2xl overflow-hidden">
         
+        {/* Subtle radial glow */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#ff4a1c]/10 rounded-full blur-3xl pointer-events-none" />
+
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+          className="absolute top-5 right-5 z-10 w-9 h-9 rounded-full bg-white/10 hover:bg-[#ff4a1c] flex items-center justify-center text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -49,22 +51,23 @@ export default function BookingModal({ screening, onClose }) {
         {step === 'select' ? (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#ff4a1c] text-white">
-                Live Tour Ticket
+              <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase bg-[#ff4a1c] text-white font-bold">
+                Official Tour Pass
               </span>
-              <span className="text-xs text-[#9d9590] font-mono">
+              <span className="text-xs text-[#f6e12b] font-mono font-bold">
                 {screening.seatsLeft}
               </span>
             </div>
 
-            <h2 className="font-anton text-3xl tracking-wide text-[#efebe3]">
+            <h2 className="font-anton text-3xl sm:text-4xl tracking-wide text-[#efebe3]">
               USTAD BANTOO · {screening.city}
             </h2>
 
-            <div className="mt-4 p-4 rounded-2xl bg-[#1d0e08] border border-white/10 space-y-2 text-sm">
+            {/* Screening Details Card */}
+            <div className="mt-4 p-4 rounded-2xl bg-[#1d0e08] border border-white/10 space-y-2 text-xs font-mono">
               <div className="flex items-center gap-2 text-[#efebe3]">
                 <Calendar className="w-4 h-4 text-[#ff4a1c]" />
-                <span className="font-bold">{screening.date}, 2026</span>
+                <span className="font-bold text-sm">{screening.date}, 2026</span>
               </div>
               <div className="flex items-center gap-2 text-[#9d9590]">
                 <Clock className="w-4 h-4 text-[#ff4a1c]" />
@@ -74,12 +77,15 @@ export default function BookingModal({ screening, onClose }) {
                 <MapPin className="w-4 h-4 text-[#ff4a1c]" />
                 <span>{screening.venue}</span>
               </div>
+              <div className="pt-1 text-[11px] text-[#efebe3]/80 italic">
+                {screening.note}
+              </div>
             </div>
 
-            <form onSubmit={handleBooking} className="mt-6 space-y-4">
+            <form onSubmit={handleBooking} className="mt-5 space-y-3.5">
               <div>
-                <label className="block text-xs uppercase font-mono text-[#9d9590] mb-1">
-                  Your Full Name
+                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                  Your Full Name *
                 </label>
                 <input
                   type="text"
@@ -92,8 +98,8 @@ export default function BookingModal({ screening, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-mono text-[#9d9590] mb-1">
-                  Email Address
+                <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                  Email Address *
                 </label>
                 <input
                   type="email"
@@ -105,9 +111,9 @@ export default function BookingModal({ screening, onClose }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs uppercase font-mono text-[#9d9590] mb-1">
+                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
                     Phone / WhatsApp
                   </label>
                   <input
@@ -120,14 +126,14 @@ export default function BookingModal({ screening, onClose }) {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase font-mono text-[#9d9590] mb-1">
-                    Number of Passes
+                  <label className="block text-[11px] uppercase font-mono text-[#9d9590] mb-1 font-bold">
+                    Pass Quantity
                   </label>
                   <div className="flex items-center border border-white/15 rounded-xl bg-[#0a0301] overflow-hidden">
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-3 py-2.5 hover:bg-white/10 text-lg font-bold"
+                      className="px-3.5 py-2 hover:bg-white/10 text-base font-bold transition-colors"
                     >
                       -
                     </button>
@@ -136,8 +142,8 @@ export default function BookingModal({ screening, onClose }) {
                     </span>
                     <button
                       type="button"
-                      onClick={() => setQuantity(Math.min(5, quantity + 1))}
-                      className="px-3 py-2.5 hover:bg-white/10 text-lg font-bold"
+                      onClick={() => setQuantity(Math.min(6, quantity + 1))}
+                      className="px-3.5 py-2 hover:bg-white/10 text-base font-bold transition-colors"
                     >
                       +
                     </button>
@@ -148,55 +154,91 @@ export default function BookingModal({ screening, onClose }) {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-[#ff4a1c] hover:bg-[#e0390f] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-[#ff4a1c]/30 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
+                  className="w-full bg-gradient-to-r from-[#ff4a1c] to-[#e0390f] hover:from-[#ff6c45] hover:to-[#ff4a1c] text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-[#ff4a1c]/30 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
                 >
                   <Ticket className="w-4 h-4" />
                   <span>Confirm Reservation ({screening.price})</span>
                 </button>
               </div>
 
-              <p className="text-[11px] text-center text-[#9d9590] font-mono">
-                Free reservation guarantee · Entry pass delivered via email & WhatsApp
-              </p>
+              <div className="flex items-center justify-center gap-2 text-[10px] text-[#9d9590] font-mono text-center pt-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#1db954]" />
+                <span>Instant Confirmation · Digital e-Pass issued immediately</span>
+              </div>
             </form>
           </div>
         ) : (
-          <div className="text-center py-4">
-            <div className="w-14 h-14 bg-[#ff4a1c]/20 border border-[#ff4a1c] rounded-full flex items-center justify-center mx-auto mb-4 text-[#ff4a1c]">
+          /* VIRTUAL PHYSICAL TICKET PASS CONFIRMATION */
+          <div className="text-center py-2 animate-fadeIn">
+            <div className="w-14 h-14 bg-[#1db954]/20 border border-[#1db954] rounded-full flex items-center justify-center mx-auto mb-3 text-[#1db954]">
               <CheckCircle className="w-8 h-8" />
             </div>
 
-            <span className="text-xs font-mono uppercase bg-[#ff4a1c] text-white px-2.5 py-0.5 rounded-full">
-              Pass Confirmed
+            <span className="text-xs font-mono uppercase bg-[#ff4a1c] text-white px-3 py-1 rounded-full font-bold">
+              Pass Confirmed & Issued
             </span>
 
-            <h3 className="font-anton text-2xl tracking-wide mt-3 text-[#efebe3]">
-              YOU'RE IN FOR {screening.city}!
+            <h3 className="font-anton text-3xl tracking-wide mt-2 text-[#efebe3]">
+              YOU'RE IN FOR {screening.city.toUpperCase()}!
             </h3>
 
-            <p className="text-sm text-[#9d9590] mt-1 max-w-sm mx-auto">
-              We've reserved {quantity} pass(es) under <strong className="text-[#efebe3]">{name}</strong>. A confirmation has been sent to {email}.
+            <p className="text-xs text-[#9d9590] mt-1 max-w-sm mx-auto font-mono">
+              We've reserved {quantity} pass(es) for <strong className="text-[#efebe3]">{name}</strong>. A confirmation has been sent to {email}.
             </p>
 
-            {/* Virtual Ticket Stub */}
-            <div className="my-6 p-4 rounded-2xl bg-[#080201] border-2 border-dashed border-[#ff4a1c]/60 text-left font-mono">
-              <div className="flex justify-between items-center border-b border-white/10 pb-2 mb-2">
-                <span className="text-xs text-[#ff4a1c] font-bold">USTAD BANTOO LIVE PASS</span>
-                <span className="text-xs text-[#efebe3] font-bold">{ticketId}</span>
+            {/* Authentic Cinema Ticket Stub */}
+            <div className="my-5 p-5 rounded-2xl bg-[#090301] border-2 border-dashed border-[#ff4a1c]/60 text-left font-mono relative overflow-hidden shadow-2xl">
+              <div className="flex justify-between items-center border-b border-white/10 pb-2.5 mb-3">
+                <div className="flex items-center gap-2">
+                  <TrumpetIcon className="w-4 h-4 text-[#ff4a1c]" />
+                  <span className="text-xs text-[#ff4a1c] font-bold tracking-wider">
+                    USTAD BANTOO TOUR PASS
+                  </span>
+                </div>
+                <span className="text-[11px] text-[#f6e12b] font-bold bg-[#1d0e07] px-2 py-0.5 rounded border border-[#f6e12b]/30">
+                  {ticketId}
+                </span>
               </div>
-              <div className="text-xs space-y-1 text-[#9d9590]">
-                <div><strong className="text-[#efebe3]">City:</strong> {screening.city}</div>
-                <div><strong className="text-[#efebe3]">Venue:</strong> {screening.venue}</div>
-                <div><strong className="text-[#efebe3]">Time:</strong> {screening.time}</div>
-                <div><strong className="text-[#efebe3]">Pass Type:</strong> Admit {quantity} · Seating 22H - 33J</div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs text-[#9d9590]">
+                <div>
+                  <span className="text-[10px] uppercase text-[#9d9590] block">Screening City</span>
+                  <strong className="text-sm font-anton uppercase text-[#efebe3] tracking-wide">{screening.city}</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase text-[#9d9590] block">Date & Time</span>
+                  <strong className="text-xs font-bold text-[#efebe3]">{screening.date}, 2026 · {screening.day} {screening.month}</strong>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-[10px] uppercase text-[#9d9590] block">Venue</span>
+                  <strong className="text-xs font-bold text-[#efebe3]">{screening.venue}</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase text-[#9d9590] block">Admit</span>
+                  <strong className="text-xs font-bold text-[#f6e12b]">{quantity} Person(s)</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase text-[#9d9590] block">Seating Zone</span>
+                  <strong className="text-xs font-bold text-[#efebe3]">Section 22H - General</strong>
+                </div>
+              </div>
+
+              {/* Barcode Graphic */}
+              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="font-mono text-[9px] text-[#9d9590] tracking-widest">
+                  ||||| ||| ||||||| || |||||| |||| |||||
+                </div>
+                <span className="text-[9px] text-[#9d9590] font-mono">
+                  THE YELLOW ORANGE · 1719 FILM FACTORY
+                </span>
               </div>
             </div>
 
             <button
               onClick={onClose}
-              className="bg-[#efebe3] hover:bg-white text-[#0d0401] font-bold px-6 py-2.5 rounded-full text-sm uppercase tracking-wider transition-colors"
+              className="w-full bg-[#efebe3] hover:bg-white text-[#0d0401] font-bold py-3.5 rounded-full text-xs uppercase tracking-wider transition-colors shadow-lg"
             >
-              Close & Return to Tour
+              Done & Return to Tour
             </button>
           </div>
         )}
