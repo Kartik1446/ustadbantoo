@@ -65,6 +65,45 @@ export const CAST_CREW = [
     "twitter": ""
   },
   {
+    "id": "harsh-kirti-band",
+    "name": "Harsh",
+    "role": "as Himself (Kirti Band Owner)",
+    "category": "cast",
+    "image": "https://framerusercontent.com/images/pcOfWnuk7i016PJnplUPOTB1Wc.jpeg",
+    "bio": "Owner of Delhi's legendary Kirti Band. Brings decades of raw, authentic brass band tradition and real-world wisdom to the screen.",
+    "quote": "“Hum log khushi bechte hain, chahe dil mein kitna bhi dard ho.”",
+    "instagram": "",
+    "email": "",
+    "linkedin": "",
+    "twitter": ""
+  },
+  {
+    "id": "nawaab-singer",
+    "name": "Nawaab",
+    "role": "as Himself (Singer in the Market)",
+    "category": "cast",
+    "image": "https://framerusercontent.com/images/FctRzcKartNhxog3ztB46gjhcGI.jpeg",
+    "bio": "A wandering mystic singer who Bantoo encounters in the Old Delhi night market, catalyzing Bantoo's quest for his own tune.",
+    "quote": "“Sur dhoondhne se nahi milta, jab khud ko bhool jao tab nikalta hai.”",
+    "instagram": "",
+    "email": "",
+    "linkedin": "",
+    "twitter": ""
+  },
+  {
+    "id": "manohar-lal-flute",
+    "name": "Manohar Lal",
+    "role": "as Himself (Flute Player)",
+    "category": "cast",
+    "image": "https://framerusercontent.com/images/2csp9GmPokmEfLFJqpbHeaJVLo.jpeg",
+    "bio": "Veteran street flute player of Delhi whose improvisations inspire Bantoo to break free from rigid wedding band scales.",
+    "quote": "",
+    "instagram": "",
+    "email": "",
+    "linkedin": "",
+    "twitter": ""
+  },
+  {
     "id": "arsh-jain",
     "name": "Arsh Jain",
     "role": "Writer, Director, Producer & Editor",

@@ -7,6 +7,7 @@
   --color-cream: #efebe3;
   --color-orange: #ff4a1c;
   --color-yellow: #f6e12b;
+  --color-brass: #d4af37;
 }
 
 body {
@@ -14,45 +15,75 @@ body {
   color: #efebe3;
   overflow-x: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0401;
+  background: #080201;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a1b14;
-  border-radius: 4px;
+  background: #2a140a;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 74, 28, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #ff4a1c;
 }
 
-/* Grain / Vignette overlay */
+/* Film Grain Texture */
 .film-grain {
-  background-image: radial-gradient(rgba(255, 74, 28, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-image: 
+    radial-gradient(rgba(255, 74, 28, 0.05) 1px, transparent 0),
+    radial-gradient(rgba(246, 225, 43, 0.02) 1px, transparent 0);
+  background-size: 28px 28px, 48px 48px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* Subtle Vignette */
+.vignette {
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
+}
+
+/* Gold Gradient Text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #efebe3 30%, #f6e12b 75%, #ff8c42 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-fire-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #ffe0d6 30%, #ff4a1c 85%, #d12e03 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Signature Bantoo Button Styles */
 .bantoo-btn {
   display: inline-flex;
   align-items: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  text-decoration: none;
 }
 
 .bantoo-btn-body {
   background-color: #efebe3;
   color: #0d0401;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 9999px 4px 9999px 9999px;
-  padding: 0.75rem 1.75rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  padding: 0.85rem 1.85rem;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
   transition: all 0.25s ease;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .bantoo-btn-icon {
@@ -61,27 +92,88 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 4px 9999px 9999px 9999px;
   margin-left: 2px;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px -2px rgba(255, 74, 28, 0.35);
 }
 
 .bantoo-btn:hover .bantoo-btn-body {
   background-color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .bantoo-btn:hover .bantoo-btn-icon {
   background-color: #e0390f;
-  transform: translateX(3px);
+  transform: translateX(4px) translateY(-1px);
+  box-shadow: 0 6px 25px 0 rgba(255, 74, 28, 0.5);
 }
 
-/* Marquee Animations */
+.bantoo-btn:active .bantoo-btn-body,
+.bantoo-btn:active .bantoo-btn-icon {
+  transform: translateY(1px);
+}
+
+/* Glass effect */
+.glass-nav {
+  background: rgba(13, 4, 1, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(20, 8, 4, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(28, 12, 6, 0.88);
+  border-color: rgba(255, 74, 28, 0.35);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 74, 28, 0.12);
+}
+
+/* Cinema Billing Block Typography */
+.billing-block {
+  font-family: 'Share Tech Mono', 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+/* Equalizer Visualizer Bars */
+@keyframes eqBounce1 {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+@keyframes eqBounce2 {
+  0%, 100% { height: 16px; }
+  50% { height: 6px; }
+}
+@keyframes eqBounce3 {
+  0%, 100% { height: 8px; }
+  50% { height: 22px; }
+}
+@keyframes eqBounce4 {
+  0%, 100% { height: 20px; }
+  50% { height: 10px; }
+}
+
+.eq-bar-1 { animation: eqBounce1 0.7s ease-in-out infinite; }
+.eq-bar-2 { animation: eqBounce2 0.85s ease-in-out infinite; }
+.eq-bar-3 { animation: eqBounce3 0.6s ease-in-out infinite; }
+.eq-bar-4 { animation: eqBounce4 0.75s ease-in-out infinite; }
+
+/* Subtle marquee */
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 30s linear infinite;
+  animation: marquee 32s linear infinite;
 }
 
 .animate-marquee:hover {
@@ -93,10 +185,35 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Glass effect */
-.glass-nav {
-  background: rgba(13, 4, 1, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(239, 235, 227, 0.08);
+/* Perforated Ticket Stub Borders */
+.ticket-edge-left {
+  position: relative;
+}
+.ticket-edge-left::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-color: #0d0401;
+  border-radius: 50%;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ticket-edge-right {
+  position: relative;
+}
+.ticket-edge-right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-color: #0d0401;
+  border-radius: 50%;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
