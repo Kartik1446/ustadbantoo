@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dark: #0d0401;
+  --color-cream: #efebe3;
+  --color-orange: #ff4a1c;
+  --color-yellow: #f6e12b;
+}
+
+body {
+  background-color: #0d0401;
+  color: #efebe3;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0401;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a1b14;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff4a1c;
+}
+
+/* Grain / Vignette overlay */
+.film-grain {
+  background-image: radial-gradient(rgba(255, 74, 28, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Signature Bantoo Button Styles */
+.bantoo-btn {
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bantoo-btn-body {
+  background-color: #efebe3;
+  color: #0d0401;
+  font-weight: 600;
+  border-radius: 9999px 4px 9999px 9999px;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+}
+
+.bantoo-btn-icon {
+  background-color: #ff4a1c;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 4px 9999px 9999px 9999px;
+  margin-left: 2px;
+  transition: all 0.25s ease;
+}
+
+.bantoo-btn:hover .bantoo-btn-body {
+  background-color: #ffffff;
+}
+
+.bantoo-btn:hover .bantoo-btn-icon {
+  background-color: #e0390f;
+  transform: translateX(3px);
+}
+
+/* Marquee Animations */
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Glass effect */
+.glass-nav {
+  background: rgba(13, 4, 1, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(239, 235, 227, 0.08);
+}
